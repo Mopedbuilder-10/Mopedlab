@@ -1,64 +1,176 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Din Hemsida</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f0f0f;
-      color: white;
-    }
+<meta charset="UTF-8">
+<title>MoppeBuilder</title>
 
-    header {
-      padding: 20px;
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-      background: black;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0f0f0f;
+  color: white;
+}
 
-    .hero {
-      height: 80vh;
-      background: url("dinbild.jpg") center/cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-      font-weight: bold;
-    }
+/* HEADER */
+header {
+  text-align: center;
+  padding: 20px;
+  font-size: 26px;
+  font-weight: bold;
+}
 
-    .content {
-      padding: 40px;
-      text-align: center;
-    }
+/* MAIN */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+}
 
-    .btn {
-      background: white;
-      color: black;
-      padding: 12px 25px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  </style>
+/* LEFT MENU */
+.menu {
+  width: 300px;
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 15px;
+  margin: 10px;
+}
+
+.menu h3 {
+  margin-top: 10px;
+}
+
+select, input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+}
+
+/* BIKE PREVIEW */
+.preview {
+  width: 350px;
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 15px;
+  margin: 10px;
+  text-align: center;
+}
+
+.bike {
+  width: 250px;
+  height: 150px;
+  margin: auto;
+  border-radius: 10px;
+  background: gray;
+  margin-top: 20px;
+  transition: 0.3s;
+}
+
+/* BUTTONS */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.save {
+  background: #00ff88;
+}
+
+.delete {
+  background: red;
+  color: white;
+}
+
+.result {
+  font-size: 20px;
+  margin-top: 15px;
+}
+</style>
 </head>
 
 <body>
 
-<header>
-  DIN BRAND
-</header>
+<header>🔥 MoppeBuilder 🔥</header>
 
-<div class="hero">
-  DIN TEXT HÄR
+<div class="container">
+
+  <!-- MENU -->
+  <div class="menu">
+    <h3>Select Moped</h3>
+    <select>
+      <option>Rieju MRT</option>
+      <option>Derbi Senda</option>
+      <option>Yamaha DT50</option>
+      <option>Gilera SMT</option>
+    </select>
+
+    <h3>Color</h3>
+    <input type="color" id="color" onchange="changeColor()">
+
+    <h3>Parts</h3>
+
+    <label>Exhaust</label>
+    <select id="exhaust">
+      <option value="0">Stock</option>
+      <option value="2500">Sport (2500 kr)</option>
+      <option value="4000">Racing (4000 kr)</option>
+    </select>
+
+    <label>Handlebar</label>
+    <select id="handlebar">
+      <option value="0">Stock</option>
+      <option value="800">Fatbar (800 kr)</option>
+      <option value="1200">Cross (1200 kr)</option>
+    </select>
+
+    <label>Lift Kit</label>
+    <select id="lift">
+      <option value="0">None</option>
+      <option value="500">+30mm (500 kr)</option>
+      <option value="900">+50mm (900 kr)</option>
+    </select>
+
+    <button onclick="calculate()">Calculate Price</button>
+
+    <div class="result" id="result"></div>
+
+    <button class="save">Save Build</button>
+    <button class="delete">Delete</button>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview">
+    <h3>Preview</h3>
+    <div class="bike" id="bike"></div>
+  </div>
+
 </div>
 
-<div class="content">
-  <p>Här kan du skriva vad du vill sälja eller visa</p>
-  <a href="#" class="btn">Köp nu</a>
-</div>
+<script>
+function calculate() {
+  let exhaust = parseInt(document.getElementById("exhaust").value);
+  let handlebar = parseInt(document.getElementById("handlebar").value);
+  let lift = parseInt(document.getElementById("lift").value);
+
+  let total = exhaust + handlebar + lift;
+
+  document.getElementById("result").innerHTML =
+    "💰 Total: " + total + " kr";
+}
+
+function changeColor() {
+  let color = document.getElementById("color").value;
+  document.getElementById("bike").style.background = color;
+}
+</script>
 
 </body>
 </html>
